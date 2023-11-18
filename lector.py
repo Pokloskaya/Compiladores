@@ -17,18 +17,14 @@ class Lector:
         for noTerminal in self.noTerminals[0]:
             self.follow1(noTerminal)
             print('Follow:',self.Follow)
+
         for noTerminal in self.noTerminals:
-            
             self.follow(noTerminal,grammar)
-            print('Follow:',self.Follow)
-
-
-        
+            print('Follow:',self.Follow)        
 
     # Metodo para calcular el first
     def first(self,noTerminal,grammar):
         reglas=grammar[noTerminal]
-        print
         for regla in reglas:
             if regla[0] not in self.noTerminals:
                 if noTerminal not in self.First:
@@ -41,7 +37,7 @@ class Lector:
                 for a in self.First[regla[0]]:
                     if a not in self.First[noTerminal]:
                         self.First[noTerminal].append(a)
-                    else: continue  
+
 
     def follow1(self,noTerminal):
         primerTerminal = noTerminal[0]
@@ -50,27 +46,22 @@ class Lector:
         if primerTerminal[0] == noTerminal[0]:     
             if '$' not in self.Follow[noTerminal]:
                 self.Follow[noTerminal].append('$')
-                
 
     
     def follow(self,noTerminal,grammar):
         reglas = grammar[noTerminal]
+
         for regla in reglas:
             if regla not in noTerminal: #posblemente hay que cambiarlo porque si hay un error tambien entra aqui
-                #print("JUAN CARLOS")
-                print(reglas)
-                print('Longitud de regla',len(regla))
                 for i in range(len(regla)):
-                    print(regla[i])
+                    print("Regla ",regla[i])
                     if regla[i] in noTerminal:
-                        if i == len(regla): # Si el símbolo no terminal es el último de la regla
-                            # print("ME ESTOY CUMPLIENDO")
+                        if i == len(regla)-1: # Si el símbolo no terminal es el último de la regla
                             self.Follow[noTerminal].append(self.Follow[noTerminal]) # Llamar a la función Follow con el mismo símbolo no terminal
                         else: 
                             print("El no terminal NO es el ultimo de la regla")
-                            self.Follow[noTerminal].append(regla[i+1]) # Llamar a la función Follow con el siguiente símbolo no terminal
-                        
-                        
+                            self.Follow[noTerminal].append(regla[i+1])
+    
         
 if __name__=="__main__":
     #entrada numero de gramaticas
@@ -118,7 +109,7 @@ ab
 '''
 
 '''
-Segundo caso de prueba.
+Segundo caso de prueba. -> follow de esto es: {S: ['$', 'b'], 'A': ['a']}	
 1
 2 4 4
 S A
