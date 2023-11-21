@@ -20,6 +20,7 @@ class Top_down:
         self.Error=False
         self.dicAsing()
         self.predictiveParsingTable()
+        
         for cadena in self.cadenas:
             self.predictiveParsing(cadena)
         
